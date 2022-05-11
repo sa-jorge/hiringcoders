@@ -1,0 +1,22 @@
+<style>
+    body{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    h1{
+        color: turquoise;
+    }
+
+    span{
+        color: blueviolet;
+    }
+    ul{
+        border: 1px solid black;
+    }
+    li{
+        color: red;
+        text-decoration: wavy;
+    }
+    p{
+        color: chartreuse;
+    }
+</style>
