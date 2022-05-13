@@ -4,6 +4,14 @@ const pets: [string, string, string] = [
     'Periquito'
 ]
 
-const valoresPet: [string, number] = [
+const cachorro: [string, number] = [
     'Cachorro', 500
+]
+
+const gato: [string, number] = [
+    'Gato', 300
+]
+
+const periquito: [string, number] = [
+    'periquito', 100
 ]
