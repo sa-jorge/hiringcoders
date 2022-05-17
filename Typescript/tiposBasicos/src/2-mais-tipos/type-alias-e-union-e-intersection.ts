@@ -23,7 +23,7 @@ function logMessage(message: string, level: logLevel){
 logMessage('uma mensagem info', 'debug')
 logMessage('uma mensagem info', 'info')
 logMessage('uma mensagem info', 'error')
-logMessage('uma mensagem info', 'dasdasd')
+
 
 //intersection types: &
 

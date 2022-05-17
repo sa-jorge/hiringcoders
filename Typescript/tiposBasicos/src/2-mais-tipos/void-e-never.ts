@@ -4,8 +4,8 @@ function principal(): void {
 
 principal();
 
-function funcaoQueNuncaRetorna(): never {
-    while(true) {
-        return false;
-    }
-}
+// function funcaoQueNuncaRetorna(): never {
+//     while(true) {
+//         return false;
+//     }
+// }
