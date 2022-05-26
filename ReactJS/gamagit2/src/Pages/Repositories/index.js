@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function Repos() {
 
     const [repositories, setRepositories] = useState([]);
+    const navigate = useNavigate ();
 
     useEffect(() => { 
         let repositoriesName = localStorage.getItem('repositoriesName');
-        repositoriesName = JSON.parse(repositoriesName);
-        setRepositories(repositoriesName);
-        localStorage.clear();
-    }, []);
+        if (repositoriesName !== null) {
+            repositoriesName = JSON.parse(repositoriesName);
+            setRepositories(repositoriesName);
+        } else {
+            navigate('/');
+        }
+
+    }, [navigate]);
 
     return (
         <div>
@@ -17,10 +23,11 @@ function Repos() {
             <ul>
                {repositories.map(repository => {
                     return (
-                        <li>Repositório: {repository}</li>
+                        <li key={repository}>Repositório: {repository}</li>
                     )
                 }) }
             </ul>
+            <button type="button" onClick={() => {navigate('/'); localStorage.clear()}}> Voltar </button>
         </div>
         
     )

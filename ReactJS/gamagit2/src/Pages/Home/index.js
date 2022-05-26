@@ -3,8 +3,9 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
 function Home(props) {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [ usuario, setUsuario] = useState('');
+  const [ erro, setErro] = useState(false);
 
   function handlePesquisa() {
     axios.get(`https://api.github.com/users/${usuario}/repos`).then(response => {
@@ -12,7 +13,11 @@ function Home(props) {
       const repositoriesName = [];
       repositories.map((repository) => (repositoriesName.push(repository.name)));
       localStorage.setItem('repositoriesName', JSON.stringify(repositoriesName));
-      history('/repositories')
+      setErro(false);
+      navigate('/repositories');
+    })
+    .catch(err => {
+      setErro(true);
     });
   }
 
@@ -20,6 +25,7 @@ function Home(props) {
     <>
       <input className="inputusuario" placeholder="Usuário" value={usuario} onChange={e => setUsuario(e.target.value)}/>
       <button type="button" onClick={handlePesquisa}> Pesquisar </button>
+      {erro ? <span>Ocorreu um erro, tente novamente.</span> : ''}
     </>
   );
 }
