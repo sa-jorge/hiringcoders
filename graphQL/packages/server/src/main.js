@@ -1,40 +1,35 @@
-import { createServer } from 'http';
-import { parse } from 'querystring';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import { gql } from 'graphql-tag';
+import typeDefs from './graphql/typeDefs';
+import resolvers from './graphql/resolvers';
 
-const server = createServer((request, response) => {
-    switch(request.url) {
-        case '/status' : {
-            response.writeHead(200, {
-                'Content-Type': 'application/json',
-            });
-            response.write(
-                JSON.stringify({
-                    status: 'Okay',
-                })
-            );
-            response.end();
-            break;
-        }
-        case '/autenticate': {
-            let data = '';
-            request.on('data', (chunk) => {
-                data += chunk;
-            });
-            request.on('end', () => {
-                response.end();
-            });
-            break;
-        }
-        default : {
-            response.writeHead(404, 'Service not found');
-            response.end();
-        }
-    }
-});
-
+const app =  express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8000;
 const HOSTNAME = process.nextTick.HOSTNAME || '127.0.0.1';
 
-server.listen(PORT, HOSTNAME, () => {
+
+async function startServer() {
+    const server = new ApolloServer ({
+        typeDefs,
+        resolvers,
+    });
+    
+    await server.start();
+    
+    server.applyMiddleware({
+        app,
+        cors: {
+            origin: 'http://localhost:3000',
+        },
+        bodyParserConfig: true,
+    });
+};
+    
+startServer();
+app.listen(PORT, HOSTNAME, () => {
     console.log(`Server is listening at http://${HOSTNAME}:${PORT}.`);
 });
+
+
+

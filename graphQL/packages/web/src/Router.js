@@ -7,7 +7,7 @@ import SignIn from "./pages/signIn";
 export default function Router() {
     return(
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" exact element={<Home />} />
             <Route path="/sign-in" element={<SignIn />} />
         </Routes>
     )
